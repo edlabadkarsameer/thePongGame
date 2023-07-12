@@ -1,13 +1,11 @@
 import turtle
 
-# Create the game window
 window = turtle.Screen()
 window.title("Pong")
 window.bgcolor("black")
 window.setup(width=800, height=600)
 window.tracer(0)
 
-# Paddle class
 class Paddle(turtle.Turtle):
     def __init__(self, x, y):
         super().__init__()
@@ -54,41 +52,39 @@ class Ball(turtle.Turtle):
         self.goto(0, 0)
         self.dx *= -1
 
-# Create paddles
 paddle_a = Paddle(-350, 0)
 paddle_b = Paddle(350, 0)
 
-# Create the ball
+
 ball = Ball()
 
-# Keyboard bindings
 window.listen()
 window.onkeypress(paddle_a.move_up, "w")
 window.onkeypress(paddle_a.move_down, "s")
 window.onkeypress(paddle_b.move_up, "Up")
 window.onkeypress(paddle_b.move_down, "Down")
 
-# Main game loop
+
 while True:
     window.update()
 
-    # Move the ball
+
     ball.move()
 
-    # Check for collision with paddles
+   
     if ball.xcor() > 340 and ball.distance(paddle_b) < 50 or ball.xcor() < -340 and ball.distance(paddle_a) < 50:
         ball.bounce_x()
 
-    # Check for collision with walls
+   
     if ball.ycor() > 290 or ball.ycor() < -290:
         ball.bounce_y()
 
-    # Check for scoring
+   
     if ball.xcor() > 390:
         ball.reset_position()
-        # Increment player A's score here
+        
 
     if ball.xcor() < -390:
         ball.reset_position()
-        # Increment player B's score here
+       
 
